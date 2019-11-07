@@ -4,14 +4,14 @@
  * [!!] this Auth driver does not support roles nor autologin.
  *
  * @copyright  (c) 2007-2016  Kohana Team
- * @copyright  (c) since 2016 Koseven Team
+ * @copyright  (c) 2016-2019  Koseven Team
+ * @copyright  (c) since 2019 Modseven Team
  * @license        https://koseven.ga/LICENSE
  */
 
 namespace Modseven\Auth\Driver;
 
-use KO7\Arr;
-
+use Modseven\Arr;
 use Modseven\Auth\Auth;
 use Modseven\Auth\Exception;
 
@@ -27,6 +27,8 @@ class File extends Auth
      * Constructor loads the user list into the class.
      *
      * @param array $config Configuration
+     *
+     * @throws \Modseven\Exception
      */
     public function __construct(array $config = [])
     {
@@ -60,7 +62,7 @@ class File extends Auth
         if (isset($this->_users[$username]) && $this->_users[$username] === $password)
         {
             // Complete the login
-            return $this->complete_login($username);
+            return $this->completeLogin($username);
         }
 
         // Login failed
@@ -74,10 +76,10 @@ class File extends Auth
      *
      * @return  boolean
      */
-    public function force_login($username) : bool
+    public function forceLogin($username) : bool
     {
         // Complete the login
-        return $this->complete_login($username);
+        return $this->completeLogin($username);
     }
 
     /**
@@ -99,9 +101,9 @@ class File extends Auth
      *
      * @return  bool
      */
-    public function check_password(string $password) : bool
+    public function checkPassword(string $password) : bool
     {
-        $username = $this->get_user();
+        $username = $this->getUser();
 
         if ($username === false)
         {

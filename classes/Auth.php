@@ -4,14 +4,15 @@
  * password hashing.
  *
  * @copyright  (c) 2007-2016  Kohana Team
- * @copyright  (c) since 2016 Koseven Team
+ * @copyright  (c) 2016-2019  Koseven Team
+ * @copyright  (c) since 2019 Modseven Team
  * @license        https://koseven.ga/LICENSE
  */
 
 namespace Modseven\Auth;
 
-use KO7\Core;
-use KO7\Session;
+use Modseven\Core;
+use Modseven\Session;
 
 abstract class Auth
 {
@@ -49,7 +50,7 @@ abstract class Auth
                 // Load the configuration for this type
                 $config = Core::$config->load('auth');
             }
-            catch (\KO7\Exception $e)
+            catch (\Modseven\Exception $e)
             {
                 throw new Exception($e->getMessage(), null, $e->getCode(), $e);
             }
@@ -69,6 +70,8 @@ abstract class Auth
      * @param array $config Config Options
      *
      * @return  void
+     *
+     * @throws \Modseven\Exception
      */
     public function __construct($config = [])
     {
@@ -86,7 +89,7 @@ abstract class Auth
      *
      * @return  mixed
      */
-    public function get_user($default = null)
+    public function getUser($default = null)
     {
         return $this->_session->get($this->_config['session_key'], $default);
     }
@@ -135,7 +138,7 @@ abstract class Auth
         }
 
         // Double check
-        return !$this->logged_in();
+        return !$this->loggedIn();
     }
 
     /**
@@ -146,9 +149,9 @@ abstract class Auth
      *
      * @return  mixed
      */
-    public function logged_in(?string $role = null)
+    public function loggedIn(?string $role = null)
     {
-        return ($this->get_user() !== null);
+        return ($this->getUser() !== null);
     }
 
     /**
@@ -177,7 +180,7 @@ abstract class Auth
      *
      * @return bool
      */
-    protected function complete_login($user) : bool
+    protected function completeLogin($user) : bool
     {
         // Regenerate session_id
         $this->_session->regenerate();
@@ -192,6 +195,6 @@ abstract class Auth
 
     abstract public function password(string $username);
 
-    abstract public function check_password(string $password);
+    abstract public function checkPassword(string $password);
 
 }

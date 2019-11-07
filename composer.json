@@ -29,13 +29,15 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
-    "toitzi/modseven": "*"
+    "modseven/core": "*"
   },
   "autoload": {
     "psr-4": {
       "Modseven\\Auth\\": "classes"
     }
+  },
+  "extra" : {
+    "modseven" : true
   },
   "minimum-stability": "dev",
   "prefer-stable": true

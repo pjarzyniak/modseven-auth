@@ -1,13 +1,11 @@
 <?php
 return [
-	'driver'  => '\\Modseven\\Auth\\Driver\\File',
+	'driver'  => \Modseven\Auth\Driver\File::class,
 	'hash_method' => 'sha256',
 	'hash_key' => NULL,
 	'lifetime' => 1209600,
-	'session_type' => \KO7\Session::$default,
+	'session_type' => \Modseven\Session::$default,
 	'session_key' => 'auth_user',
-	// For Auth_Bcrypt
-	'cost' => 10,
 
 	// Username/password combinations for the Auth File driver
 	'users' => [
