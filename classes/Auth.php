@@ -48,7 +48,7 @@ abstract class Auth
             try
             {
                 // Load the configuration for this type
-                $config = Core::$config->load('auth');
+                $config = \Modseven\Config::instance()->load('auth');
             }
             catch (\Modseven\Exception $e)
             {
@@ -58,7 +58,7 @@ abstract class Auth
             $driver = $config->get('driver');
 
             // Create a new session instance
-            static::$_instance = new $driver($config);
+            static::$_instance = new $driver($config->asArray());
         }
 
         return static::$_instance;
