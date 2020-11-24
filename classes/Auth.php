@@ -11,7 +11,7 @@
 
 namespace Modseven\Auth;
 
-use Modseven\Core;
+use Modseven\Config;
 use Modseven\Session;
 
 abstract class Auth
@@ -48,7 +48,7 @@ abstract class Auth
             try
             {
                 // Load the configuration for this type
-                $config = Core::$config->load('auth');
+                $config = Config::instance()->load('auth');
             }
             catch (\Modseven\Exception $e)
             {
@@ -58,7 +58,7 @@ abstract class Auth
             $driver = $config->get('driver');
 
             // Create a new session instance
-            static::$_instance = new $driver($config);
+            static::$_instance = new $driver($config->asArray());
         }
 
         return static::$_instance;
@@ -145,7 +145,7 @@ abstract class Auth
      * Check if there is an active session. Optionally allows checking for a
      * specific role.
      *
-     * @param string $role role name
+     * @param string|null $role role name
      *
      * @return  mixed
      */
